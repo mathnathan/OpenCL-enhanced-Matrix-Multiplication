@@ -102,4 +102,5 @@ void print_matrix_file(const matrix<T> & A, const char* filename) {
         }
     }
     output << "|\n";
+    output.close();
 }
