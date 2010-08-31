@@ -1,2 +1,0 @@
-/home/mathnathan/Code/class/numerical_analysis/matrix_multiplication/build/CMakeFiles/FLOATmatrixmul.dir
-/home/mathnathan/Code/class/numerical_analysis/matrix_multiplication/build/CMakeFiles/INTmatrixmul.dir
