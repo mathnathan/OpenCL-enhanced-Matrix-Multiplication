@@ -4,7 +4,7 @@ Honors Thesis Advisor: Mark Sussman
 
 Institute: Florida State University - Undergraduate studies in Applied Mathematics and Scientific Computing. 
 
-This is a simple matrix multiplication program written for my numerical analysis course. I'm planning to use this as a foundation for experimenting with OpenCLi optimization.
+This is a simple matrix multiplication program written for my numerical analysis course. I'm planning to use this as a foundation for experimenting with OpenCL optimization.
 
 FILES:
     matrixmul.hpp - Multiplication algorithm and print functions (library)
