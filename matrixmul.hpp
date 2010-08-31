@@ -31,6 +31,7 @@ struct matrix {
     unsigned int width;
 
     matrix(unsigned int h, unsigned int w);
+    ~matrix();
 };
 
 // Constructor - Initializes matrix of size (h x w) with
@@ -38,6 +39,12 @@ template <typename T>
 matrix<T>::matrix(unsigned int h = 0, unsigned int w = 0): height(h), width(w) {
     data = new T[height*width];
 }
+
+template <typename T>
+matrix<T>::~matrix() {
+    delete [] data;
+}
+
 
 /* -------------Multiplication Function-----------------
      Without using sparse matrices, this is roughly as

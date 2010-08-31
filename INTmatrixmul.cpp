@@ -7,6 +7,7 @@
 */
 
 # include <fstream>
+# include <string.h>
 # include <stdio.h>
 # include <iostream>
 # include "matrixmul.hpp"
@@ -28,11 +29,11 @@ int main ( int argc, char** argv ) {
     // Matrix A is a 3x4 matrix where each row is listed
     // one after the other
     int a [] = {1,2,1,0,4,0,1,2,2,1,0,3};
-    A.data = a;
+    memcpy(A.data, a, sizeof(int)*ah*aw);
     // Matrix B is a 4x5 matrix where each row is listed 
     // one after the other
     int b [] = {0,1,4,2,1,3,0,0,1,0,2,4,1,0,1,3,0,1,4,3};
-    B.data = b;
+    memcpy(B.data, b, sizeof(int)*bh*bw);
 
     printf("\nMatrix A:\n");
     print_matrix_screen(A);    
