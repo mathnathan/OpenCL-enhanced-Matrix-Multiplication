@@ -15,7 +15,7 @@ using namespace std;
 
 int main ( int argc, char** argv ) {
 
-    const char * FILENAME = "IntOutput.txt"
+    const char * FILENAME = "IntOutput.txt";
     int ah, aw, bh, bw; // Matrix A's, and B's height and width
 
     ah = 3;
@@ -39,10 +39,11 @@ int main ( int argc, char** argv ) {
     printf("\nMatrix B:\n");
     print_matrix_screen(B);    
 
-    C = matMul(A, B);
+    matMul(A, B, C);
     printf("\nMatrix A*B:\n");
     print_matrix_screen(C);
     print_matrix_file(C, FILENAME);
+    printf("\nMatrix A*B has been written to file %s\n\n", FILENAME);
 
     return 0;
 }

@@ -6,6 +6,7 @@
                          subroutines of large dimension. 
 */
 
+# include <stdlib.h>
 # include <fstream>
 # include <stdio.h>
 # include <iostream>
@@ -18,7 +19,10 @@ using namespace std;
 
 int main ( int argc, char** argv ) {
 
-    const int DIMENSIONS = 2000;
+    // If DIMENSIONS is above 500, the program can
+    // take up to a few minutes depending on your CPU speed.
+    // This will no longer matter once I rewrite this in OpenCL >=)
+    const int DIMENSIONS = 20;
     const float MIN = 0.0;
     const float MAX = 9.0;
     const char* FILENAMEA = "FloatOutputA.txt";
@@ -29,15 +33,17 @@ int main ( int argc, char** argv ) {
 
     ah = aw = bh = bw = DIMENSIONS;
 
-    matrix<int> A(ah, aw), B(bh, bw), C(ah, bw);
+    matrix<float> A(ah, aw), B(bh, bw), C(ah, bw);
 
     // Fill the matrices with random floats
+        printf("\nFilling in random floats...\n");
     for(int i = 0; i < DIMENSIONS*DIMENSIONS; i++) {
         A.data[i] = rand_float(MIN, MAX);  
         B.data[i] = rand_float(MIN, MAX);  
     }
 
-    C = matMul(A, B);
+    printf("\nMultiplying Matrices...\n");
+    matMul(A, B, C);
 
     printf("\nMatrix A was written to: %s\n", FILENAMEA);
     print_matrix_file(A, FILENAMEA);
@@ -45,8 +51,8 @@ int main ( int argc, char** argv ) {
     printf("\nMatrix B was written to: %s\n", FILENAMEB);
     print_matrix_file(B, FILENAMEB);
 
-    printf("\nMatrix C was written to: %s\n", FILENAMEC);
-    print_matrix_file(C, FILENAME);
+    printf("\nMatrix C was written to: %s\n\n", FILENAMEC);
+    print_matrix_file(C, FILENAMEC);
 
     return 0;
 }

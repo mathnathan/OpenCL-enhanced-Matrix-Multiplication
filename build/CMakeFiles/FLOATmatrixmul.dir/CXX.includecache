@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/mathnathan/Code/class/numerical_analysis/matrix_multiplication/FLOATmatrixmul.cpp
+stdlib.h
+-
+fstream
+-
+stdio.h
+-
+iostream
+-
+matrixmul.hpp
+/home/mathnathan/Code/class/numerical_analysis/matrix_multiplication/matrixmul.hpp
+
+/home/mathnathan/Code/class/numerical_analysis/matrix_multiplication/matrixmul.hpp
+fstream
+-
+stdio.h
+-
+

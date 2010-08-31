@@ -31,21 +31,13 @@ struct matrix {
     unsigned int width;
 
     matrix(unsigned int h, unsigned int w);
-    ~matrix();
 };
 
 // Constructor - Initializes matrix of size (h x w) with
 template <typename T>
 matrix<T>::matrix(unsigned int h = 0, unsigned int w = 0): height(h), width(w) {
     data = new T[height*width];
-    }
 }
-
-// Destructor - Memory clean up
-template <typename T>
-matrix<T>::~matrix() {
-    delete [] data;
-    }
 
 /* -------------Multiplication Function-----------------
      Without using sparse matrices, this is roughly as
@@ -57,9 +49,7 @@ matrix<T>::~matrix() {
    up in each entry of the resultant matrix.            */
 
 template <typename T>
-matrix<T> matMul(matrix<T> A, matrix<T> B) 
-{
-    matrix<T> C(A.height, B.width);
+void matMul(const matrix<T> & A, const matrix<T> & B, matrix<T> & C) {
 
     int row, col;
     for (int entry = 0; entry < A.height*B.width; entry++) {
@@ -69,30 +59,28 @@ matrix<T> matMul(matrix<T> A, matrix<T> B)
             C.data[entry] += A.data[row*A.width + elem]*B.data[col + elem*B.width];
         }
     } 
-  
-    return C;
 }
 
 // Print a matrix to the screen
 template <typename T>
-void print_matrix_screen(matrix<T> A) {
+void print_matrix_screen(const matrix<T> & A) {
 
     printf("\n| ");
     for(int i = 0; i < A.height; i++) {
         if(i > 0 && i < A.height) {
-            printf(" |\n");
+            printf("|\n");
             printf("| ");
         }
         for(int j = 0; j < A.width; j++) {
-            printf("%d ", A.data[i*A.width + j]);
+            cout << A.data[i*A.width + j] << " ";
         }
     }
-    printf(" |\n");
+    printf("|\n");
 }
 
 // Print a matrix to a file
 template <typename T>
-void print_matrix_file(matrix<T> A, const char* filename) {
+void print_matrix_file(const matrix<T> & A, const char* filename) {
 
     std::ofstream output;
     output.open(filename);
@@ -100,13 +88,11 @@ void print_matrix_file(matrix<T> A, const char* filename) {
     output << "| ";
     for(int i = 0; i < A.height; i++) {
         if(i > 0 && i < A.height) {
-        output << " |\n";
+        output << "|\n";
         output << "| ";}
         for(int j = 0; j < A.width; j++) {
             output << A.data[i*A.width + j] << " ";
         }
     }
-    output << " |\n";
-
-    printf("\n\n**The result has been written to Matrix_Product.txt**\n\n");
+    output << "|\n";
 }
