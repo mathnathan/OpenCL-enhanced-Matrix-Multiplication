@@ -30,23 +30,31 @@ struct matrix {
     unsigned int height;
     unsigned int width;
 
-    // Constructor - Initializes matrix of size (h x w) with 0's
     matrix(unsigned int h, unsigned int w);
     ~matrix();
 };
 
+// Constructor - Initializes matrix of size (h x w) with
 template <typename T>
 matrix<T>::matrix(unsigned int h = 0, unsigned int w = 0): height(h), width(w) {
     data = new T[height*width];
-    for (int i = 0; i < height*width; i++) {
-        data[i] = 0;
     }
 }
 
+// Destructor - Memory clean up
 template <typename T>
 matrix<T>::~matrix() {
     delete [] data;
     }
+
+/* -------------Multiplication Function-----------------
+     Without using sparse matrices, this is roughly as
+   quick as you'll get when brute force multiplying 
+   matrices. The first for loop goes through every 
+   element of the resultant matrix, while the nested
+   for loop goes over the columns. The products of all the 
+   elements in the respective rows and columns are summed
+   up in each entry of the resultant matrix.            */
 
 template <typename T>
 matrix<T> matMul(matrix<T> A, matrix<T> B) 
@@ -65,6 +73,7 @@ matrix<T> matMul(matrix<T> A, matrix<T> B)
     return C;
 }
 
+// Print a matrix to the screen
 template <typename T>
 void print_matrix_screen(matrix<T> A) {
 
@@ -81,11 +90,12 @@ void print_matrix_screen(matrix<T> A) {
     printf(" |\n");
 }
 
+// Print a matrix to a file
 template <typename T>
-void print_matrix_file(matrix<T> A) {
+void print_matrix_file(matrix<T> A, const char* filename) {
 
     std::ofstream output;
-    output.open("Matrix_Product.txt");
+    output.open(filename);
 
     output << "| ";
     for(int i = 0; i < A.height; i++) {

@@ -2,10 +2,8 @@
 
     Date: 8/26/2010 @ 19:33
 
-    Program Description: An integer implementation of the matrix multiplication 
-                         subroutines. 
-
-    DISCLAIMER: There is very little error checking, please follow the rules!
+    Program Description: A float implementation of the matrix multiplication 
+                         subroutines of large dimension. 
 */
 
 # include <fstream>
@@ -13,64 +11,48 @@
 # include <iostream>
 # include "matrixmul.hpp"
 
+// Returns a random float
+float rand_float(const float mn, const float mx);
+
 using namespace std;
 
 int main ( int argc, char** argv ) {
 
-    matrix<int> A, B, C;
+    const int DIMENSIONS = 2000;
+    const float MIN = 0.0;
+    const float MAX = 9.0;
+    const char* FILENAMEA = "FloatOutputA.txt";
+    const char* FILENAMEB = "FloatOutputB.txt";
+    const char* FILENAMEC = "FloatOutputC.txt";
 
     int ah, aw, bh, bw; // Matrix A's, and B's height and width
-    bool sameSize = false; // for looping below
 
-    while( sameSize == false ) {
-        printf("\nEnter the number of rows and columns of the first matrix\n"
-               " separated by a space.\n");
+    ah = aw = bh = bw = DIMENSIONS;
 
-        cin >> ah;
-        cin >> aw;
+    matrix<int> A(ah, aw), B(bh, bw), C(ah, bw);
 
-        printf("\nEnter the number of rows and columns of the second matrix\n"
-               " separated by a space.\n");
-
-        cin >> bh;
-        cin >> bw;
-
-        // Assert that the columns of matrix A are the same as the rows of matrix B
-        if( aw == bh ) 
-            sameSize = true; // If so exit loop
-        else { // Else inform of error and take input again
-            printf("\nThe columns of the first matrix must equal the rows\n"
-                   " of the second matrix\n");
-        }
+    // Fill the matrices with random floats
+    for(int i = 0; i < DIMENSIONS*DIMENSIONS; i++) {
+        A.data[i] = rand_float(MIN, MAX);  
+        B.data[i] = rand_float(MIN, MAX);  
     }
 
+    C = matMul(A, B);
 
-    printf("Values for the matrices will be entered separated by spaces:\n"
-            " Example: | 2 4 0 |\n"
-            "          | 1 3 1 |\n"
-            "          | 8 2 2 |\n"
-            " Would be entered like this: 2 4 0 1 3 1 8 2 2\n"
-            " \nData for the first matrix: ");
+    printf("\nMatrix A was written to: %s\n", FILENAMEA);
+    print_matrix_file(A, FILENAMEA);
 
-    for(int i = 0; i < ah*aw; i++) {
-        cin >> A.data[i];
-        break;
-    }
+    printf("\nMatrix B was written to: %s\n", FILENAMEB);
+    print_matrix_file(B, FILENAMEB);
 
-    printf("Data for the second matrix: ");
-
-    for(int i = 0; i < bh*bw; i++) {
-        cin >> B.data[i];
-    }
-
-    // Hard coding input for testing purposes
-    int a [] = {1,2,1,0,4,0,1,2,2,1,0,3};
-    A.data = a;
-    int b [] = {0,1,4,2,1,3,0,0,1,0,2,4,1,0,1,3,0,1,4,3};
-    B.data = b;
-
-    print_matrix_screen(C);
-    print_matrix_file(C);
+    printf("\nMatrix C was written to: %s\n", FILENAMEC);
+    print_matrix_file(C, FILENAME);
 
     return 0;
+}
+
+float rand_float(const float mn, const float mx)
+{
+    float r = random() / (float) RAND_MAX;
+    return mn + (mx-mn)*r;
 }

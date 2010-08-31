@@ -4,8 +4,6 @@
 
     Program Description: An integer implementation of the matrix multiplication 
                          subroutines. 
-
-    DISCLAIMER: There is very little error checking, please follow the rules!
 */
 
 # include <fstream>
@@ -17,54 +15,22 @@ using namespace std;
 
 int main ( int argc, char** argv ) {
 
+    const char * FILENAME = "IntOutput.txt"
     int ah, aw, bh, bw; // Matrix A's, and B's height and width
-    bool sameSize = false; // for looping below
 
-    while( sameSize == false ) {
-        printf("\nEnter the number of rows and columns of the first matrix\n"
-               " separated by a space.\n ->");
-
-        cin >> ah;
-        cin >> aw;
-
-        printf("\nEnter the number of rows and columns of the second matrix\n"
-               " separated by a space.\n ->");
-
-        cin >> bh;
-        cin >> bw;
-
-        // Assert that the columns of matrix A are the same as the rows of matrix B
-        if( aw == bh ) 
-            sameSize = true; // If so exit loop
-        else { // Else inform of error and take input again
-            printf("\nThe columns of the first matrix must equal the rows\n"
-                   " of the second matrix\n");
-        }
-    }
+    ah = 3;
+    aw = 4;
+    bh = 4;
+    bw = 5;
 
     matrix<int> A(ah, aw), B(bh, bw), C(ah, bw);
-/*
-    printf("\nValues for the matrices will be entered separated by spaces:\n"
-            " Example: | 2 4 0 |\n"
-            "          | 1 3 1 |\n"
-            "          | 8 2 2 |\n"
-            " Would be entered like this: 2 4 0 1 3 1 8 2 2\n"
-            " \nData for the first matrix: ");
 
-    for(int i = 0; i < ah*aw; i++) {
-        cin >> A.data[i];
-        break;
-    }
-
-    printf("\nData for the second matrix: ");
-
-    for(int i = 0; i < bh*bw; i++) {
-        cin >> B.data[i];
-    }
-*/
-    // Hard coding input for testing purposes
+    // Matrix A is a 3x4 matrix where each row is listed
+    // one after the other
     int a [] = {1,2,1,0,4,0,1,2,2,1,0,3};
     A.data = a;
+    // Matrix B is a 4x5 matrix where each row is listed 
+    // one after the other
     int b [] = {0,1,4,2,1,3,0,0,1,0,2,4,1,0,1,3,0,1,4,3};
     B.data = b;
 
@@ -76,7 +42,7 @@ int main ( int argc, char** argv ) {
     C = matMul(A, B);
     printf("\nMatrix A*B:\n");
     print_matrix_screen(C);
-    print_matrix_file(C);
+    print_matrix_file(C, FILENAME);
 
     return 0;
 }
