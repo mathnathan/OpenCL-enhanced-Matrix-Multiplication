@@ -1,11 +1,11 @@
-/*  Author: Nathan Crock
+/*  Author: Nathan Crock - http://www.mathnathan.com
 
     Date: 8/26/2010 @ 19:33
 
-    Program Description: A matrix multiplication program written for my 
+    Program Description: A matrix multiplication function written for my 
                          Numerical Analysis class. This program takes in
                          two matrices of any size and any type and 
-                         multiplies them using the standard row/column
+                         multiplies them using the standard row by column
                          matrix multiplication technique.
 */
 
@@ -32,6 +32,7 @@ struct matrix {
 
     // Constructor - Initializes matrix of size (h x w) with 0's
     matrix(unsigned int h, unsigned int w);
+    ~matrix();
 };
 
 template <typename T>
@@ -43,13 +44,19 @@ matrix<T>::matrix(unsigned int h = 0, unsigned int w = 0): height(h), width(w) {
 }
 
 template <typename T>
+matrix<T>::~matrix() {
+    delete [] data;
+    }
+
+template <typename T>
 matrix<T> matMul(matrix<T> A, matrix<T> B) 
 {
     matrix<T> C(A.height, B.width);
 
+    int row, col;
     for (int entry = 0; entry < A.height*B.width; entry++) {
-        int row = entry / B.width;
-        int col = entry % B.width;
+        row = entry / B.width;
+        col = entry % B.width;
         for (int elem = 0; elem < A.width; elem++) {
             C.data[entry] += A.data[row*A.width + elem]*B.data[col + elem*B.width];
         }
@@ -77,7 +84,7 @@ void print_matrix_screen(matrix<T> A) {
 template <typename T>
 void print_matrix_file(matrix<T> A) {
 
-    ofstream output;
+    std::ofstream output;
     output.open("Matrix_Product.txt");
 
     output << "| ";
@@ -89,7 +96,7 @@ void print_matrix_file(matrix<T> A) {
             output << A.data[i*A.width + j] << " ";
         }
     }
-
     output << " |\n";
+
     printf("\n\n**The result has been written to Matrix_Product.txt**\n\n");
 }
